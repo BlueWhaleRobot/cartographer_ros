@@ -3,13 +3,10 @@ quick start tips for xiaoqiang
 * 0. install ceres-solver and cartographer from https://github.com/BlueWhaleRobot
 
 * 1. git clone and install
-
-```
-cd ~/Documents/ros/src
-git clone https://github.com/BlueWhaleRobot/cartographer_ros.git 
-cd ..
-catkin_make
-```
+    cd ~/Documents/ros/src
+    git clone https://github.com/BlueWhaleRobot/cartographer_ros.git 
+    cd ..
+    catkin_make
 
 Made with :heart: by BlueWhale Tech corp.
 =========================================
