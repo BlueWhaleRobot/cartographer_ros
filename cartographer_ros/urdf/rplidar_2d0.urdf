@@ -1,0 +1,227 @@
+<robot
+  name="xiaoqiang_udrf">
+  <link
+    name="laserbase_link">
+    <inertial>
+      <origin
+        xyz="-0.1098 -0.0015527 0.0081894"
+        rpy="0 0 0" />
+      <mass
+        value="4.3093" />
+      <inertia
+        ixx="0.024068"
+        ixy="0.00014219"
+        ixz="-0.0052989"
+        iyy="0.052449"
+        iyz="-1.328E-05"
+        izz="0.070783" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.098039 0.098039 0.098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="right_wheel">
+    <inertial>
+      <origin
+        xyz="1.2074E-15 5.2042E-16 0.040256"
+        rpy="0 0 0" />
+      <mass
+        value="0.4651" />
+      <inertia
+        ixx="0.00057862"
+        ixy="-9.5729E-21"
+        ixz="-1.1736E-18"
+        iyy="0.00057862"
+        iyz="3.9119E-21"
+        izz="0.00090953" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rot1"
+    type="continuous">
+    <origin
+      xyz="0 -0.176 -0.05489"
+      rpy="1.5708 0 0" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="right_wheel" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="left_wheel">
+    <inertial>
+      <origin
+        xyz="2.2482E-15 -1.7625E-15 -0.040256"
+        rpy="0 0 0" />
+      <mass
+        value="0.4651" />
+      <inertia
+        ixx="0.00057862"
+        ixy="-6.9556E-21"
+        ixz="3.436E-18"
+        iyy="0.00057862"
+        iyz="4.1026E-21"
+        izz="0.00090953" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rot2"
+    type="continuous">
+    <origin
+      xyz="0 0.176 -0.05489"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="left_wheel" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="back_wheel">
+    <inertial>
+      <origin
+        xyz="-0.016124 -0.038361 -1.58E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.070437" />
+      <inertia
+        ixx="3.8166E-05"
+        ixy="9.5646E-06"
+        ixz="-2.9588E-12"
+        iyy="2.3031E-05"
+        iyz="-3.2194E-12"
+        izz="5.0491E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/back_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.098039 0.098039 0.098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/back_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rot3"
+    type="continuous">
+    <origin
+      xyz="-0.25204 -0.00060998 -0.037"
+      rpy="1.5708 0 -5.9631E-17" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="back_wheel" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+
+
+  <link name="laser">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.03" />
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+  <joint name="horizontal_laser_link_joint" type="fixed">
+    <parent link="laserbase_link" />
+    <child link="laser" />
+    <origin xyz="0 0 0.45" rpy="0 0 3.1415926" />
+  </joint>
+
+
+  <link name="laserbase_footprint">
+  <joint name="laserbase_link_joint" type="fixed">
+    <parent link="laserbase_footprint" />
+    <child link="laserbase_link" />
+    <origin xyz="0 0 0.15" />
+  </joint>
+
+</robot>
