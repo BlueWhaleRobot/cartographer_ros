@@ -15,6 +15,7 @@
 -->
 
 <launch>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0  laserbase_footprint /base_footprint 20" /> -->
   <include file="$(find cartographer_ros)/launch/rplidar_2d.launch" />
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="

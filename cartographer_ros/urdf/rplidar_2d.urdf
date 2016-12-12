@@ -91,7 +91,7 @@
   </link>
   <joint
     name="rot1"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="0 -0.176 -0.05489"
       rpy="1.5708 0 0" />
@@ -144,7 +144,7 @@
   </link>
   <joint
     name="rot2"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="0 0.176 -0.05489"
       rpy="-1.5708 0 3.1416" />
@@ -197,7 +197,7 @@
   </link>
   <joint
     name="rot3"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="-0.25204 -0.00060998 -0.037"
       rpy="1.5708 0 -5.9631E-17" />
