@@ -16,6 +16,7 @@
 
 <launch>
   <param name="/use_sim_time" value="true" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0  laserbase_footprint /base_footprint 20" /> -->
   <include file="$(find cartographer_ros)/launch/rplidar_2d.launch" />
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
@@ -23,7 +24,7 @@
               $(find cartographer_ros)/configuration_files
           -configuration_basename xiaoqiang_rplidar_2d.lua"
       output="screen">
-      <remap from="scan" to="/scan" />
+      <remap from="/odom" to="/xqserial_server/Odom" />
   </node>
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_ros)/configuration_files/rplidar_2d.rviz" />
