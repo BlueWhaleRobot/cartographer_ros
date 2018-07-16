@@ -12,52 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)  # Ships with Ubuntu 14.04 (Trusty)
 
 project(cartographer_rviz)
 
 set(PACKAGE_DEPENDENCIES
+  cartographer_ros
   cartographer_ros_msgs
   eigen_conversions
+  message_runtime
   roscpp
+  roslib
   rviz
 )
 
-set(CMAKE_CXX_FLAGS "-pthread -std=c++11 -Wreorder")
+find_package(cartographer REQUIRED)
+include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
+google_initialize_cartographer_project()
 
-if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -DNDEBUG")
-elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  message(FATAL_ERROR "Cartographer is too slow to be useful in debug mode.")
-else()
-  message(FATAL_ERROR "Unknown CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-endif()
-
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-
+find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system iostreams)
 find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
-include_directories(${catkin_INCLUDE_DIRS})
 
 catkin_package(
   CATKIN_DEPENDS
     message_runtime
     ${PACKAGE_DEPENDENCIES}
+  INCLUDE_DIRS "."
 )
 
-find_package(cartographer REQUIRED)
-include_directories(${CARTOGRAPHER_INCLUDE_DIRS})
-link_directories(${CARTOGRAPHER_LIBRARY_DIRS})
-
-find_package(ZLIB REQUIRED)
-include_directories(${ZLIB_INCLUDE_DIRS})
-
+file(GLOB_RECURSE ALL_SRCS "*.cc" "*.h")
 set(CMAKE_AUTOMOC ON)
+add_library(${PROJECT_NAME} ${ALL_SRCS})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES})
+
 if(rviz_QT_VERSION VERSION_LESS "5")
   message(STATUS "Using Qt4 based on the rviz_QT_VERSION: ${rviz_QT_VERSION}")
   find_package(Qt4 ${rviz_QT_VERSION} EXACT REQUIRED QtCore QtGui)
@@ -66,36 +54,37 @@ else()
   message(STATUS "Using Qt5 based on the rviz_QT_VERSION: ${rviz_QT_VERSION}")
   find_package(Qt5 ${rviz_QT_VERSION} EXACT REQUIRED Core Widgets)
   set(QT_LIBRARIES Qt5::Widgets)
+  include_directories(${Qt5Widgets_INCLUDE_DIRS})
 endif()
 add_definitions(-DQT_NO_KEYWORDS)
 
-find_package(Boost REQUIRED
- COMPONENTS
- system
- iostreams
-)
-add_definitions(${BOOST_DEFINITIONS})
-include_directories(${Boost_INCLUDE_DIRS}
-${PROJECT_SOURCE_DIR}
-)
-link_directories(${Boost_LIBRARY_DIRS})
-
-add_library(cartographer_rviz_submaps_visualization
-  cartographer_rviz/drawable_submap.cc
-  cartographer_rviz/submaps_display.cc
-)
-target_link_libraries(cartographer_rviz_submaps_visualization
-  ${Boost_LIBRARIES}
-  ${CARTOGRAPHER_LIBRARIES}
-  ${QT_LIBRARIES}
-  ${ZLIB_LIBRARIES}
-  ${catkin_LIBRARIES}
-)
-add_dependencies(cartographer_rviz_submaps_visualization
-  ${catkin_EXPORTED_TARGETS}
+# Add the binary directory first, so that port.h is included after it has
+# been generated.
+target_include_directories(${PROJECT_NAME} PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
 )
 
-install(TARGETS cartographer_rviz_submaps_visualization
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
+  "${EIGEN3_INCLUDE_DIR}")
+target_link_libraries(${PROJECT_NAME} PUBLIC ${EIGEN3_LIBRARIES})
+
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
+  "${Boost_INCLUDE_DIRS}")
+target_link_libraries(${PROJECT_NAME} PUBLIC ${Boost_LIBRARIES})
+
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${catkin_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
+
+set(TARGET_COMPILE_FLAGS "${TARGET_COMPILE_FLAGS} ${GOOG_CXX_FLAGS}")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  COMPILE_FLAGS ${TARGET_COMPILE_FLAGS})
+
+target_link_libraries(${PROJECT_NAME} PUBLIC cartographer)
+
+install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

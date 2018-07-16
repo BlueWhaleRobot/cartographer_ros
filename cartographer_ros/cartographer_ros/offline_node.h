@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 The Cartographer Authors
+ * Copyright 2018 The Cartographer Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,25 @@
  * limitations under the License.
  */
 
-#ifndef CARTOGRAPHER_ROS_OCCUPANCY_GRID_H_
-#define CARTOGRAPHER_ROS_OCCUPANCY_GRID_H_
+#ifndef CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_OFFLINE_NODE_H
+#define CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_OFFLINE_NODE_H
 
+#include <functional>
+#include <memory>
+#include <string>
 #include <vector>
 
-#include "cartographer/mapping/trajectory_node.h"
+#include "cartographer/mapping/map_builder_interface.h"
 #include "cartographer_ros/node_options.h"
-#include "nav_msgs/OccupancyGrid.h"
 
 namespace cartographer_ros {
 
-void BuildOccupancyGrid(
-    const std::vector<::cartographer::mapping::TrajectoryNode>&
-        trajectory_nodes,
-    const NodeOptions& options, ::nav_msgs::OccupancyGrid* occupancy_grid);
+using MapBuilderFactory =
+    std::function<std::unique_ptr<::cartographer::mapping::MapBuilderInterface>(
+        const ::cartographer::mapping::proto::MapBuilderOptions&)>;
+
+void RunOfflineNode(const MapBuilderFactory& map_builder_factory);
 
 }  // namespace cartographer_ros
 
-#endif  // CARTOGRAPHER_ROS_OCCUPANCY_GRID_H_
+#endif  // CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_OFFLINE_NODE_H

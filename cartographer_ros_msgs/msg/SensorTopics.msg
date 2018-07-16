@@ -12,4 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SubmapEntry[] submap
+string laser_scan_topic
+string multi_echo_laser_scan_topic
+string point_cloud2_topic
+string imu_topic
+string odometry_topic
+string nav_sat_fix_topic
+string landmark_topic

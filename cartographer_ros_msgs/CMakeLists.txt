@@ -16,28 +16,41 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(cartographer_ros_msgs)
 
-find_package(Cartographer REQUIRED)
-include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
-google_initialize_cartographer_project()
+set(PACKAGE_DEPENDENCIES
+  geometry_msgs
+  std_msgs
+)
 
-find_package(catkin REQUIRED COMPONENTS geometry_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS message_generation ${PACKAGE_DEPENDENCIES})
 
 add_message_files(
   FILES
+    LandmarkEntry.msg
+    LandmarkList.msg
+    StatusCode.msg
+    StatusResponse.msg
     SubmapList.msg
-    TrajectorySubmapList.msg
     SubmapEntry.msg
+    SubmapTexture.msg
+    SensorTopics.msg
+    TrajectoryOptions.msg
 )
 
 add_service_files(
   FILES
     SubmapQuery.srv
     FinishTrajectory.srv
+    StartTrajectory.srv
+    WriteState.srv
 )
 
 generate_messages(
   DEPENDENCIES
-    geometry_msgs
+    ${PACKAGE_DEPENDENCIES}
 )
 
-catkin_package()
+catkin_package(
+  CATKIN_DEPENDS
+    ${PACKAGE_DEPENDENCIES}
+    message_runtime
+)

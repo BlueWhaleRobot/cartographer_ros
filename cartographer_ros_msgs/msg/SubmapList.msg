@@ -13,4 +13,4 @@
 # limitations under the License.
 
 std_msgs/Header header
-TrajectorySubmapList[] trajectory
+cartographer_ros_msgs/SubmapEntry[] submap

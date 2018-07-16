@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-#ifndef CARTOGRAPHER_ROS_MAP_WRITER_H_
-#define CARTOGRAPHER_ROS_MAP_WRITER_H_
+#include "cartographer_ros/node_constants.h"
 
-#include <string>
-
-#include "nav_msgs/OccupancyGrid.h"
+#include "glog/logging.h"
 
 namespace cartographer_ros {
 
-// Writes the given 'occupancy_grid' as 'stem'.pgm and 'stem'.yaml.
-void WriteOccupancyGridToPgmAndYaml(
-    const ::nav_msgs::OccupancyGrid& occupancy_grid, const std::string& stem);
+std::vector<std::string> ComputeRepeatedTopicNames(const std::string& topic,
+                                                   const int num_topics) {
+  CHECK_GE(num_topics, 0);
+  if (num_topics == 1) {
+    return {topic};
+  }
+  std::vector<std::string> topics;
+  topics.reserve(num_topics);
+  for (int i = 0; i < num_topics; ++i) {
+    topics.emplace_back(topic + "_" + std::to_string(i + 1));
+  }
+  return topics;
+}
 
 }  // namespace cartographer_ros
-
-#endif  // CARTOGRAPHER_ROS_MAP_WRITER_H_

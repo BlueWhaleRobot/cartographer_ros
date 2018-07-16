@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef CARTOGRAPHER_ROS_TF_BRIDGE_H_
-#define CARTOGRAPHER_ROS_TF_BRIDGE_H_
+#ifndef CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_TF_BRIDGE_H
+#define CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_TF_BRIDGE_H
 
 #include <memory>
 
@@ -28,8 +28,8 @@ namespace cartographer_ros {
 
 class TfBridge {
  public:
-  TfBridge(const string& tracking_frame, double lookup_transform_timeout_sec,
-           const tf2_ros::Buffer* buffer);
+  TfBridge(const std::string& tracking_frame,
+           double lookup_transform_timeout_sec, const tf2_ros::Buffer* buffer);
   ~TfBridge() {}
 
   TfBridge(const TfBridge&) = delete;
@@ -38,14 +38,14 @@ class TfBridge {
   // Returns the transform for 'frame_id' to 'tracking_frame_' if it exists at
   // 'time'.
   std::unique_ptr<::cartographer::transform::Rigid3d> LookupToTracking(
-      ::cartographer::common::Time time, const string& frame_id) const;
+      ::cartographer::common::Time time, const std::string& frame_id) const;
 
  private:
-  const string tracking_frame_;
+  const std::string tracking_frame_;
   const double lookup_transform_timeout_sec_;
   const tf2_ros::Buffer* const buffer_;
 };
 
 }  // namespace cartographer_ros
 
-#endif  // CARTOGRAPHER_ROS_TF_BRIDGE_H_
+#endif  // CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_TF_BRIDGE_H
