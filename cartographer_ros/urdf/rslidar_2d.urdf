@@ -1,0 +1,338 @@
+<robot
+  name="xiaoqiang_udrf">
+  <link
+    name="laserbase_link">
+    <inertial>
+      <origin
+        xyz="0.0739287757231092 -0.000231615659211233 0.0521199201220533"
+        rpy="0 0 0" />
+      <mass
+        value="8.36303567682231" />
+      <inertia
+        ixx="0.108946982419341"
+        ixy="3.11912048400738E-05"
+        ixz="0.0285991269769911"
+        iyy="0.174209236580041"
+        iyz="-3.87570736828523E-05"
+        izz="0.169436598215615" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.098039 0.098039 0.098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_link_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="laserbase_link" />
+    <origin xyz="0 0 0.15" />
+  </joint>
+
+  <link
+    name="right_wheel">
+    <inertial>
+      <origin
+        xyz="2.34224847309172E-07 -4.18391444476085E-07 -0.0313585308024449"
+        rpy="0 0 0" />
+      <mass
+        value="0.834069618273221" />
+      <inertia
+        ixx="0.00135726839183469"
+        ixy="-9.67227768689481E-11"
+        ixz="5.20467286648132E-09"
+        iyy="0.00135726807389091"
+        iyz="-9.29700936296369E-09"
+        izz="0.00245953673287894" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel"
+    type="fixed">
+    <origin
+      xyz="0 -0.137 -0.035"
+      rpy="-1.5708 0.82165 5.3376E-17" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="right_wheel" />
+  </joint>
+  <link
+    name="left_wheel">
+    <inertial>
+      <origin
+        xyz="2.3422484732305E-07 -4.18391444469146E-07 -0.0313585308024448"
+        rpy="0 0 0" />
+      <mass
+        value="0.834069618273221" />
+      <inertia
+        ixx="0.00135726839183469"
+        ixy="-9.67227779531503E-11"
+        ixz="5.20467286638775E-09"
+        iyy="0.00135726807389091"
+        iyz="-9.29700936303383E-09"
+        izz="0.00245953673287894" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_whell"
+    type="fixed">
+    <origin
+      xyz="0 0.137 -0.035"
+      rpy="-1.5708 0.68527 -3.1416" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="left_wheel" />
+  </joint>
+  <link
+    name="front1_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0219509394856257 -0.0497654925206955 -8.24697044266021E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.126682636045453" />
+      <inertia
+        ixx="8.58301085170872E-05"
+        ixy="-1.75690856456565E-05"
+        ixz="1.4480574702378E-10"
+        iyy="5.641859934683E-05"
+        iyz="2.48635960500572E-10"
+        izz="0.000118263597691831" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/front1_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/front1_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_rot"
+    type="fixed">
+    <origin
+      xyz="0.26879 0.0795 -0.02225"
+      rpy="1.5708 0 -2.0971" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="front1_wheel" />
+  </joint>
+  <link
+    name="front2_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0219509414641416 -0.0497654917386023 -8.28137300817877E-08"
+        rpy="0 0 0" />
+      <mass
+        value="0.126682635871512" />
+      <inertia
+        ixx="8.58301209689117E-05"
+        ixy="-1.75690808934397E-05"
+        ixz="1.54126882717859E-10"
+        iyy="5.641859130817E-05"
+        iyz="2.4729050394631E-10"
+        izz="0.000118263588798326" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/front2_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/front2_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_rot"
+    type="fixed">
+    <origin
+      xyz="0.26879 -0.0805 -0.02225"
+      rpy="1.5708 0 -0.38246" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="front2_wheel" />
+  </joint>
+
+  <link
+    name="kinect_link">
+    <inertial>
+      <origin
+        xyz="-5.87573113058461E-05 5.53730394869945E-11 0.00406829312764971"
+        rpy="0 0 0" />
+      <mass
+        value="0.588695418123486" />
+      <inertia
+        ixx="0.000252720769597177"
+        ixy="-8.4114087384226E-11"
+        ixz="9.66369894017477E-07"
+        iyy="0.00330215907806691"
+        iyz="-2.07230914828389E-12"
+        izz="0.0032059987634125" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/kinect_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29412 0.29412 0.29412 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://xiaoqiang_udrf/meshes/kinect_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="kinect"
+    type="fixed">
+    <origin
+      xyz="0.13823 0 0.255"
+      rpy="-1.4803 0 -1.5708" />
+    <parent
+      link="laserbase_link" />
+    <child
+      link="kinect_link" />
+  </joint>
+
+  <link name="rslidar">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.05" />
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+  <joint name="horizontal_laser_link_joint" type="fixed">
+    <parent link="laserbase_link" />
+    <child link="rslidar" />
+    <origin xyz="0 0 0.4" rpy="0 0 0" />
+  </joint>
+
+  <link name="imu">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.01" />
+      </geometry>
+      <material name="gray" />
+    </visual>
+  </link>
+  <joint name="imu_link_joint" type="fixed">
+    <parent link="laserbase_link" />
+    <child link="imu" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+</robot>
