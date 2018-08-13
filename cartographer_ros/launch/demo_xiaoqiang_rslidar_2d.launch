@@ -26,6 +26,7 @@
       output="screen">
       <remap from="/odom" to="/xqserial_server/Odom" />
       <remap from="/points2" to="/rslidar_points" />
+      <remap from="/imu" to="/xqserial_server/IMU" />
   </node>
   <node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find cartographer_ros)/configuration_files/rslidar_2d.rviz" />
